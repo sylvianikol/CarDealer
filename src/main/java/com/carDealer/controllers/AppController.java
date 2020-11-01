@@ -72,6 +72,21 @@ public class AppController implements CommandLineRunner {
         
         // 5. Total Sales by Customer
 //        this.getTotalSalesByCustomer();
+
+        // 6. Sales with Applied Discount
+        this.getSalesWithDiscount();
+    }
+
+    private void getSalesWithDiscount() throws IOException {
+        List<SaleWithDiscountViewDto> saleWithDiscountViewDtos =
+                this.saleService.getSalesWithDiscount();
+
+        String dtosToJson = this.gson.toJson(saleWithDiscountViewDtos);
+
+        this.fileIOUtil.write(dtosToJson, SALES_WITH_DISCOUNT_FILE_PATH);
+
+        System.out.printf("Sales with Discount successfully written to '%s'%n",
+                SALES_WITH_DISCOUNT_FILE_PATH);
     }
 
     private void getTotalSalesByCustomer() throws IOException {
@@ -86,7 +101,7 @@ public class AppController implements CommandLineRunner {
     }
 
     private void getCarsWithParts() throws IOException {
-        List<CarViewDto> carViewDtos =
+        List<CarWithListOfPartsViewDto> carViewDtos =
                 this.carService.getCarsWithParts();
 
         String dtosToJson = this.gson.toJson(carViewDtos);

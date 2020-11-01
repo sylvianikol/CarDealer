@@ -1,8 +1,10 @@
 package com.carDealer.services.impl;
 
 import com.carDealer.models.dtos.views.SaleViewDto;
+import com.carDealer.models.dtos.views.SaleWithDiscountViewDto;
 import com.carDealer.models.entitties.Car;
 import com.carDealer.models.entitties.Customer;
+import com.carDealer.models.entitties.Part;
 import com.carDealer.models.entitties.Sale;
 import com.carDealer.repositories.SaleRepository;
 import com.carDealer.services.CarService;
@@ -14,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -75,6 +75,36 @@ public class SaleServiceImpl implements SaleService {
             saleViewDtos.add(saleViewDto);
         }
         return saleViewDtos;
+    }
+
+    @Override
+    public List<SaleWithDiscountViewDto> getSalesWithDiscount() {
+        List<Sale> sales = this.saleRepository.findAll();
+        List<SaleWithDiscountViewDto> saleWithDiscountViewDtos = new ArrayList<>();
+
+        for (Sale sale : sales) {
+            SaleWithDiscountViewDto saleDto =
+                    this.modelMapper.map(sale, SaleWithDiscountViewDto.class);
+
+            BigDecimal price = calculatePrice(sale.getCar().getParts());
+            BigDecimal discount = sale.getDiscount();
+
+            saleDto.setPrice(price);
+            saleDto.setPriceWithDiscount(price.subtract(price.multiply(discount)));
+
+            saleWithDiscountViewDtos.add(saleDto);
+        }
+
+        return saleWithDiscountViewDtos;
+    }
+
+    private BigDecimal calculatePrice(List<Part> parts) {
+        BigDecimal price = new BigDecimal(0);
+        for (Part part : parts) {
+            price = price.add(part.getPrice());
+        }
+
+        return price;
     }
 
     private double getRandomDiscount() {

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Table(name = "sales")
 public class Sale extends BaseEntity {
 
-    private BigDecimal discount = new BigDecimal("0.0");
+    private BigDecimal discount;
     private Car car;
     private Customer customer;
 

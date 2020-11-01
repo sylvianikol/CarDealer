@@ -1,10 +1,9 @@
 package com.carDealer.services.impl;
 
 import com.carDealer.models.dtos.seed.CarSeedDto;
-import com.carDealer.models.dtos.views.CarViewDto;
+import com.carDealer.models.dtos.views.CarWithListOfPartsViewDto;
 import com.carDealer.models.dtos.views.CarWithMakeViewDto;
 import com.carDealer.models.entitties.Car;
-import com.carDealer.models.entitties.Customer;
 import com.carDealer.models.entitties.Part;
 import com.carDealer.repositories.CarRepository;
 import com.carDealer.repositories.CustomerRepository;
@@ -121,14 +120,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarViewDto> getCarsWithParts() {
+    public List<CarWithListOfPartsViewDto> getCarsWithParts() {
         List<Car> cars = this.carRepository.findAll();
-        List<CarViewDto> carViewDtos = new ArrayList<>();
+        List<CarWithListOfPartsViewDto> carViewDtos = new ArrayList<>();
 
 
         for (Car car : cars) {
-            CarViewDto carDto =
-                    this.modelMapper.map(car, CarViewDto.class);
+            CarWithListOfPartsViewDto carDto =
+                    this.modelMapper.map(car, CarWithListOfPartsViewDto.class);
 
             carViewDtos.add(carDto);
         }

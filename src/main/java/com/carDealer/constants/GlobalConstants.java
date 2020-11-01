@@ -23,4 +23,6 @@ public class GlobalConstants {
             "src/main/resources/files/views/carsWithParts";
     public static final String TOTAL_SALES_BY_CUSTOMER_FILE_PATH =
             "src/main/resources/files/views/totalSalesByCustomer";
+    public static final String SALES_WITH_DISCOUNT_FILE_PATH =
+            "src/main/resources/files/views/salesWithDiscount";
 }

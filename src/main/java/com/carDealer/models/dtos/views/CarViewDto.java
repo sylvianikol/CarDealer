@@ -5,16 +5,36 @@ import com.google.gson.annotations.Expose;
 public class CarViewDto {
 
     @Expose
-    private CarWithPartsViewDto car;
+    private String Make;
+    @Expose
+    private String Model;
+    @Expose
+    private Long TravelledDistance;
 
     public CarViewDto() {
     }
 
-    public CarWithPartsViewDto getCar() {
-        return car;
+    public String getMake() {
+        return Make;
     }
 
-    public void setCar(CarWithPartsViewDto car) {
-        this.car = car;
+    public void setMake(String make) {
+        Make = make;
+    }
+
+    public String getModel() {
+        return Model;
+    }
+
+    public void setModel(String model) {
+        Model = model;
+    }
+
+    public Long getTravelledDistance() {
+        return TravelledDistance;
+    }
+
+    public void setTravelledDistance(Long travelledDistance) {
+        TravelledDistance = travelledDistance;
     }
 }
